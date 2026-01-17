@@ -74,3 +74,35 @@ select EmpID
 from red_30_sales_cleaned
 where EmpID in (900015476, 900012972, 900010875)
 group by EmpID, OrderType
+
+
+select count(*)
+from red_30_sales_cleaned
+
+select count(distinct(EmpID))
+from red_30_sales_cleaned
+
+-- functions
+
+PRAGMA table_info(red_30_sales_cleaned); -- display the types of table colums
+
+
+select cast(OrderDate as date)   -- cast or convert the type text into date
+from red_30_sales_cleaned;
+
+
+select EmpID
+  , max(julianday(OrderDate)) - min(julianday(OrderDate)) as MinMaxDatediffDays
+from red_30_sales_cleaned
+where EmpID = 900010875
+
+
+select OrderDate
+  , strftime('%Y-%m-01', OrderDate) as FirstOfMonth
+from red_30_sales_cleaned
+
+
+select strftime('%Y-%m-01', OrderDate) as FirstOfMonth
+  , sum(OrderTotal) as OrderTotalSum
+from red_30_sales_cleaned
+group by FirstOfMonth
